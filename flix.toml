@@ -1,0 +1,6 @@
+[package]
+name = "grid-display"
+description = "A simple program to display a 7x5 grid"
+version = "0.1.0"
+flix = "0.35.0"
+authors = ["Uberto Barbini"] 

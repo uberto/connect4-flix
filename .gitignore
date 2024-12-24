@@ -1,0 +1,12 @@
+# Flix build artifacts
+build/
+*.jar
+
+# IDE specific files
+.idea/
+.vscode/
+*.iml
+
+# OS specific files
+.DS_Store
+Thumbs.db 
