@@ -32,4 +32,8 @@ This project aims to create a command-line implementation of the classic Connect
 
 ## Author
 
-- Uberto Barbini 
+- Uberto Barbini
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
