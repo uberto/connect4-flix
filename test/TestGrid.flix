@@ -91,4 +91,34 @@ mod TestGrid {
         println("Expected:");
         println(expected);
         afterYellow == expected
+
+    @test
+    def testStackDiscs(): Bool \ IO = 
+        // Create an empty grid
+        let grid = Grid.mkEmptyGrid(7, 4);
+        
+        // Place a red disc in column 3
+        let gridWithRed = Grid.placeDisc(grid, 3, Red);
+        
+        // Place a yellow disc in the same column
+        let gridWithBoth = Grid.placeDisc(gridWithRed, 3, Yellow);
+        
+        let actual = Grid.gridToString(gridWithBoth);
+        println("Actual grid:");
+        println(actual);
+        
+        let expected = String.unlines(
+            "+---+---+---+---+---+---+---+" ::
+            "|   |   |   |   |   |   |   |" ::
+            "+---+---+---+---+---+---+---+" ::
+            "|   |   |   |   |   |   |   |" ::
+            "+---+---+---+---+---+---+---+" ::
+            "|   |   |   | Y |   |   |   |" ::
+            "+---+---+---+---+---+---+---+" ::
+            "|   |   |   | R |   |   |   |" ::
+            "+---+---+---+---+---+---+---+" :: Nil
+        );
+        println("Expected grid:");
+        println(expected);
+        actual == expected
 } 
