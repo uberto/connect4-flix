@@ -59,4 +59,36 @@ mod TestGrid {
             "+---+---+---+---+---+---+---+" :: Nil
         );
         Grid.gridToString(grid) == expected
+
+    @test
+    def testPlaceDisc(): Bool \ IO = 
+        // Create an empty grid
+        let grid = Grid.mkEmptyGrid(7, 4);
+        
+        // Place a red disc in column 3 (0-based)
+        let gridWithRed = Grid.placeDisc(grid, 3, Red);
+        let afterRed = Grid.gridToString(gridWithRed);
+        println("After placing Red:");
+        println(afterRed);
+        
+        // Place a yellow disc in column 2
+        let gridWithBoth = Grid.placeDisc(gridWithRed, 2, Yellow);
+        let afterYellow = Grid.gridToString(gridWithBoth);
+        println("After placing Yellow:");
+        println(afterYellow);
+        
+        let expected = String.unlines(
+            "+---+---+---+---+---+---+---+" ::
+            "|   |   |   |   |   |   |   |" ::
+            "+---+---+---+---+---+---+---+" ::
+            "|   |   |   |   |   |   |   |" ::
+            "+---+---+---+---+---+---+---+" ::
+            "|   |   |   |   |   |   |   |" ::
+            "+---+---+---+---+---+---+---+" ::
+            "|   |   | Y | R |   |   |   |" ::
+            "+---+---+---+---+---+---+---+" :: Nil
+        );
+        println("Expected:");
+        println(expected);
+        afterYellow == expected
 } 

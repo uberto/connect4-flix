@@ -17,6 +17,38 @@ mod Grid {
     pub def mkEmptyGrid(width: Int32, height: Int32): List[List[Cell]] =
         List.range(0, height) |> List.map(_ -> mkCellList(Empty, width))
 
+    /// Places a disc in the specified column of the grid.
+    /// The disc will "fall" to the lowest empty position in that column.
+    pub def placeDisc(grid: List[List[Cell]], col: Int32, player: Cell): List[List[Cell]] =
+        // Helper function to update a single row
+        def updateRow(row: List[Cell], c: Int32): List[Cell] =
+            List.mapWithIndex((i, cell) -> if (i == c) player else cell, row);
+
+        // Helper function to find the lowest empty position
+        def findLowestEmpty(rows: List[List[Cell]], r: Int32): Option[Int32] =
+            match rows {
+                case Nil => None
+                case row :: rest => {
+                    let cell = List.mapWithIndex((i, c) -> (i, c), row) 
+                              |> List.find(x -> fst(x) == col) 
+                              |> Option.map(x -> snd(x));
+                    match cell {
+                        case None => None
+                        case Some(Empty) => Some(r)
+                        case Some(_) => findLowestEmpty(rest, r - 1)
+                    }
+                }
+            };
+
+        // Find the lowest empty position and update the grid
+        match findLowestEmpty(List.reverse(grid), List.length(grid) - 1) {
+            case None => grid  // Column is full or invalid
+            case Some(row) => List.mapWithIndex((r, rowList) -> 
+                if (r == row) updateRow(rowList, col)
+                else rowList
+            , grid)
+        }
+
     /// Converts a cell to its string representation
     def cellToString(cell: Cell): String = match cell {
         case Empty => "   "
